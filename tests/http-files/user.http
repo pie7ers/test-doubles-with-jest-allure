@@ -1,0 +1,10 @@
+### Post login
+POST http://localhost:3000/api/v1/users/login
+Content-Type: application/json
+
+{
+    "username": "bob",
+    "password": "5678"
+}
+
+###

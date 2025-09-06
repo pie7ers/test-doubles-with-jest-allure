@@ -1,0 +1,9 @@
+{
+    "depcheck": {
+        "ignoreMatches": [
+            "commitlint",
+            "jest-allure2-reporter",
+            "typescript-eslint"
+        ]
+    }
+}
