@@ -1,0 +1,50 @@
+name: Tests-Local
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  test-local:
+      timeout-minutes: 60
+      runs-on: ubuntu-latest
+      environment: .env
+
+      steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install dependencies
+        run: npm ci
+          
+      - name: Create .env file
+        run: npm run makeEnv
+
+      - name: Strart Server and Run tests-local
+        run: npm run ci:test
+
+      - name: Strart Server and Run tests-local with allure and generate report
+        run: npm run ci:test:allure
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ env.ACT != 'true' && !cancelled() }}
+        with:
+          name: allure-results
+          path: reports/allure-results
+          retention-days: 30
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ env.ACT != 'true' && !cancelled() }}
+        with:
+          name: allure-report
+          path: reports/allure-report
+          retention-days: 30

@@ -31,7 +31,10 @@ Having installed:
 Run:
 - npm ci
 - npm run make
-- check package.json
+- check package.json for more commands
+    - for the following commands, validate the port is the same in .env:
+        - ci:test
+        - ci:test:allure
 
 ## Test Pipeline Locally
 
